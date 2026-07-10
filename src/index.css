@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-purple: #aa3bff;
+  --color-brand-purple-light: #c084fc;
+  --color-dark-bg: #0b0f19;
+  --color-glass-card: rgba(30, 41, 59, 0.4);
+  --color-glass-border: rgba(148, 163, 184, 0.1);
+}
+
+/* Estilos base */
+body {
+  margin: 0;
+  background-color: #0b0f19; /* Fallback direct value */
+  color: #f3f4f6;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
