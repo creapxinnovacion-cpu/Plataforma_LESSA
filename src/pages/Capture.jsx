@@ -48,10 +48,10 @@ export default function Capture() {
 
     const now = performance.now();
     // Validar requisitos de calidad de calibración
-    const isQualityMet = 
-      handDetected && 
-      handCentered && 
-      lightingQuality !== 'low' && 
+    const isQualityMet =
+      handDetected &&
+      handCentered &&
+      lightingQuality !== 'low' &&
       stabilityQuality === 'stable';
 
     // Capturar muestra si cumple calidad y pasaron 1000ms desde la última toma
@@ -69,7 +69,7 @@ export default function Capture() {
         };
         addSample(sample);
         setLastCaptureTime(now);
-        
+
         // Efecto visual flash de disparo
         const flash = document.getElementById('camera-flash');
         if (flash) {
@@ -127,7 +127,7 @@ export default function Capture() {
 
       // Si estuviéramos conectando a Google Apps Script o FastAPI
       const response = await api.post('/api/v1/dataset/upload', payload);
-      
+
       clearInterval(interval);
       setUploadProgress(100);
       setUploadStatus('success');
@@ -164,15 +164,15 @@ export default function Capture() {
         <div className="lg:col-span-2 space-y-6">
           <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-850 bg-slate-950 aspect-video">
             {/* Cámara Component */}
-            <Camera 
-              onLandmarksDetected={handleLandmarksDetected} 
-              onStreamActive={(s) => setStream(s)} 
+            <Camera
+              onLandmarksDetected={handleLandmarksDetected}
+              onStreamActive={(s) => setStream(s)}
             />
 
             {/* Efecto de Flash de Disparo */}
-            <div 
-              id="camera-flash" 
-              className="absolute inset-0 bg-white opacity-0 transition-opacity duration-75 pointer-events-none z-10" 
+            <div
+              id="camera-flash"
+              className="absolute inset-0 bg-white opacity-0 transition-opacity duration-75 pointer-events-none z-10"
             />
 
             {/* Overlay Silueta de Guía Visual (TSK-2.4) */}
@@ -189,11 +189,10 @@ export default function Capture() {
 
             {/* HUD de Calidad Superior */}
             <div className="absolute top-4 left-4 right-4 flex justify-between gap-3 pointer-events-none z-20">
-              <div className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-md ${
-                handDetected 
-                  ? 'border-emerald-500/30 text-emerald-400' 
-                  : 'border-red-500/30 text-red-400'
-              }`}>
+              <div className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-md ${handDetected
+                ? 'border-emerald-500/30 text-emerald-400'
+                : 'border-red-500/30 text-red-400'
+                }`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${handDetected ? 'bg-emerald-500' : 'bg-red-500 animate-ping'}`} />
                 {handDetected ? 'Mano Detectada' : 'Mano no Detectada'}
               </div>
@@ -204,21 +203,18 @@ export default function Capture() {
 
             {/* HUD de Calidad Inferior */}
             <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-3 pointer-events-none z-20">
-              <div className={`bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-lg border text-center ${
-                handCentered ? 'border-emerald-500/30 text-emerald-400' : 'border-red-500/30 text-red-400'
-              }`}>
+              <div className={`bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-lg border text-center ${handCentered ? 'border-emerald-500/30 text-emerald-400' : 'border-red-500/30 text-red-400'
+                }`}>
                 <span className="text-[9px] text-slate-500 font-medium block uppercase tracking-wider">Alineación</span>
                 <span className="text-xs font-bold block mt-0.5">{handCentered ? 'Centrado' : 'Deficiente'}</span>
               </div>
-              <div className={`bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-lg border text-center ${
-                lightingQuality !== 'low' ? 'border-emerald-500/30 text-emerald-400' : 'border-red-500/30 text-red-400'
-              }`}>
+              <div className={`bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-lg border text-center ${lightingQuality !== 'low' ? 'border-emerald-500/30 text-emerald-400' : 'border-red-500/30 text-red-400'
+                }`}>
                 <span className="text-[9px] text-slate-500 font-medium block uppercase tracking-wider">Luminosidad</span>
                 <span className="text-xs font-bold block mt-0.5 capitalize">{lightingQuality}</span>
               </div>
-              <div className={`bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-lg border text-center ${
-                stabilityQuality === 'stable' ? 'border-emerald-500/30 text-emerald-400' : 'border-red-500/30 text-red-400'
-              }`}>
+              <div className={`bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-lg border text-center ${stabilityQuality === 'stable' ? 'border-emerald-500/30 text-emerald-400' : 'border-red-500/30 text-red-400'
+                }`}>
                 <span className="text-[9px] text-slate-500 font-medium block uppercase tracking-wider">Estabilidad</span>
                 <span className="text-xs font-bold block mt-0.5">{stabilityQuality === 'stable' ? 'Estable' : 'Inestable'}</span>
               </div>
@@ -254,11 +250,10 @@ export default function Capture() {
                 <button
                   onClick={handleStartCapture}
                   disabled={!isReadyToStart}
-                  className={`w-full sm:w-auto px-8 py-3.5 font-bold rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow-lg ${
-                    isReadyToStart
-                      ? 'bg-brand-purple hover:bg-purple-600 text-white shadow-purple-900/20'
-                      : 'bg-slate-850 border border-slate-800 text-slate-500 cursor-not-allowed'
-                  }`}
+                  className={`w-full sm:w-auto px-8 py-3.5 font-bold rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow-lg ${isReadyToStart
+                    ? 'bg-brand-purple hover:bg-purple-600 text-white shadow-purple-900/20'
+                    : 'bg-slate-850 border border-slate-800 text-slate-500 cursor-not-allowed'
+                    }`}
                 >
                   <Play size={16} />
                   <span>Iniciar Ráfaga (10)</span>
@@ -278,13 +273,48 @@ export default function Capture() {
                 <label className="block text-slate-550 text-[10px] font-bold uppercase tracking-wider mb-2">Selección</label>
                 <select
                   value={activeSign}
-                  onChange={(e) => setActiveSign(e.target.value)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    let cat = 'Alfabeto';
+                    if (['Oraciones', 'Frases', 'Conversacion', 'Palabras'].includes(val)) {
+                      cat = val;
+                    }
+                    setActiveSign(val, cat);
+                  }}
                   className="w-full bg-slate-950 border border-slate-850 rounded-xl py-3 px-4 text-white text-xs focus:outline-none focus:ring-2 focus:ring-brand-purple/50"
                 >
                   <option value="A">Letra A (Alfabeto)</option>
                   <option value="B">Letra B (Alfabeto)</option>
                   <option value="C">Letra C (Alfabeto)</option>
                   <option value="CH">Letra CH (Alfabeto)</option>
+                  <option value="D">Letra D (Alfabeto)</option>
+                  <option value="E">Letra E (Alfabeto)</option>
+                  <option value="F">Letra F (Alfabeto)</option>
+                  <option value="G">Letra G (Alfabeto)</option>
+                  <option value="H">Letra H (Alfabeto)</option>
+                  <option value="I">Letra I (Alfabeto)</option>
+                  <option value="J">Letra J (Alfabeto)</option>
+                  <option value="K">Letra K (Alfabeto)</option>
+                  <option value="L">Letra L (Alfabeto)</option>
+                  <option value="M">Letra M (Alfabeto)</option>
+                  <option value="N">Letra N (Alfabeto)</option>
+                  <option value="Ñ">Letra Ñ (Alfabeto)</option>
+                  <option value="O">Letra O (Alfabeto)</option>
+                  <option value="P">Letra P (Alfabeto)</option>
+                  <option value="Q">Letra Q (Alfabeto)</option>
+                  <option value="R">Letra R (Alfabeto)</option>
+                  <option value="S">Letra S (Alfabeto)</option>
+                  <option value="T">Letra T (Alfabeto)</option>
+                  <option value="U">Letra U (Alfabeto)</option>
+                  <option value="V">Letra V (Alfabeto)</option>
+                  <option value="W">Letra W (Alfabeto)</option>
+                  <option value="X">Letra X (Alfabeto)</option>
+                  <option value="Y">Letra Y (Alfabeto)</option>
+                  <option value="Z">Letra Z (Alfabeto)</option>
+                  <option value="Oraciones">Oraciones</option>
+                  <option value="Frases">Frases</option>
+                  <option value="Conversacion">Conversación</option>
+                  <option value="Palabras">Palabras</option>
                 </select>
               </div>
 
@@ -340,10 +370,10 @@ export default function Capture() {
                 </button>
               )}
 
-              <UploadProgress 
-                progress={uploadProgress} 
-                status={uploadStatus} 
-                error={uploadError} 
+              <UploadProgress
+                progress={uploadProgress}
+                status={uploadStatus}
+                error={uploadError}
               />
             </div>
           )}
