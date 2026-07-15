@@ -126,7 +126,10 @@ export default function Capture() {
       };
 
       // Si estuviéramos conectando a Google Apps Script o FastAPI
-      const response = await api.post('/api/v1/dataset/upload', payload);
+      const isGas = api.defaults.baseURL.includes('script.google.com');
+      const response = isGas
+        ? await api.post('', payload)
+        : await api.post('/api/v1/dataset/upload', payload);
 
       clearInterval(interval);
       setUploadProgress(100);

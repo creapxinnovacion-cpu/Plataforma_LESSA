@@ -27,6 +27,13 @@ api.interceptors.request.use(
           }
         } catch (e) { }
       }
+    } else {
+      // Para Google Apps Script, evitar preflight OPTIONS convirtiendo la data a string
+      // y usando un Content-Type seguro (text/plain)
+      config.headers['Content-Type'] = 'text/plain';
+      if (config.data && typeof config.data === 'object') {
+        config.data = JSON.stringify(config.data);
+      }
     }
     return config;
   },
