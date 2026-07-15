@@ -31,6 +31,12 @@ api.interceptors.request.use(
       // Para Google Apps Script, evitar preflight OPTIONS convirtiendo la data a string
       // y usando un Content-Type seguro (text/plain)
       config.headers['Content-Type'] = 'text/plain';
+      
+      // Eliminar cabeceras de autorización para evitar preflight
+      if (config.headers) {
+        delete config.headers['Authorization'];
+      }
+      
       if (config.data && typeof config.data === 'object') {
         config.data = JSON.stringify(config.data);
       }
